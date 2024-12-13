@@ -1,0 +1,8 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "bun install"
+
+[deploy]
+startCommand = "pm2 start pm2.config.js --env production --attach"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
