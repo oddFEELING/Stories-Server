@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import UserService from "@/services/user.service";
 import { z } from "zod";
-import { zValidator } from "@Hono/zod-validator";
+import { zValidator } from "@hono/zod-validator";
 import UserModel from "@/models/user.schema";
 import { clerkClient } from "@clerk/express";
 
