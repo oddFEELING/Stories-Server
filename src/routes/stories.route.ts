@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { z } from "zod";
-import { zValidator } from "@Hono/zod-validator";
+import { zValidator } from "@hono/zod-validator";
 import { promiseResolver } from "@/utils/promise-resolver";
 import StoryModel from "@/models/story.schema";
 import { createAudio } from "@/utils/chapter-audio-utils";
