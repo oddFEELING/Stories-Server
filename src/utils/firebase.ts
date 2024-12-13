@@ -13,17 +13,13 @@ const firebaseConfig = {
   measurementId: "G-QB4CTTBMTF",
 };
 
-const serviceAccount =
-  Bun.env.NODE_ENV === "development"
-    ? cert(
-        JSON.parse(
-          Buffer.from(
-            Bun.env.FIREBASE_SERVICE_ACCOUNT as string,
-            "base64",
-          ).toString("utf-8"),
-        ),
-      )
-    : cert(require("@/utils/firebase-service-account.json"));
+const serviceAccount = cert(
+  JSON.parse(
+    Buffer.from(Bun.env.FIREBASE_SERVICE_ACCOUNT as string, "base64").toString(
+      "utf-8",
+    ),
+  ),
+);
 
 const app = initializeApp({
   credential: serviceAccount,
