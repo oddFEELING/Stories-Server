@@ -3,4 +3,5 @@ node_modules/
 
 .env
 .env.local
+/logs
 /src/utils/firebase-service-account.json

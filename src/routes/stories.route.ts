@@ -6,6 +6,7 @@ import StoryModel from "@/models/story.schema";
 import { createAudio } from "@/utils/chapter-audio-utils";
 import { bucket } from "@/utils/firebase";
 import { getDownloadURL } from "firebase-admin/storage";
+import axios from "axios";
 import { openai } from "@/services/openai-queries/client.openai";
 
 const app = new Hono();
@@ -118,6 +119,36 @@ app.post(
           n: 1,
         });
 
+        // ~ ======= save chapter cover  -->
+        const cover_file = bucket.file(
+          `user-files/user-${owner}/stories/${story_id}/chapter-${chapter_number}-cover.png`,
+        );
+        const image_response = await axios({
+          url: cover.data[0].url,
+          method: "GET",
+          responseType: "stream",
+        });
+
+        const writeStream = cover_file.createWriteStream({
+          metadata: {
+            contentType: image_response.headers["content-type"],
+            owner,
+            story_id,
+            chapter_number,
+          },
+        });
+
+        image_response.data.pipe(writeStream);
+
+        await new Promise((resolve, reject) => {
+          writeStream.on("finish", resolve);
+          writeStream.on("error", reject);
+        });
+
+        // ~ ======= cover download url  -->
+        const cover_url = await getDownloadURL(cover_file);
+
+        // ~ ======= save chapter audio -->
         const file = bucket.file(
           `user-files/user-${owner}/stories/${story_id}/chapter-${chapter_number}.mp3`,
         );
@@ -141,7 +172,7 @@ app.post(
               "chapters.$.content.raw": content,
               "chapters.$.audio_url": audio_url,
               updatedAt: new Date(),
-              "story_art.image_url": cover.data[0].url,
+              "story_art.image_url": cover_url,
             },
           },
         );

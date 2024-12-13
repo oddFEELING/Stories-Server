@@ -9,6 +9,7 @@ interface User extends Document {
   last_name: string;
   other_names?: string;
   email: string;
+  zap_cells: number;
   profile_img: string;
   auth_id: string;
   roles: ("user" | "mod" | "admin")[];

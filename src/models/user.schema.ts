@@ -7,6 +7,7 @@ const UserSchema: Schema = new mongoose.Schema<User>(
     last_name: { type: String, required: true },
     auth_id: { type: String, required: true, unique: true },
     other_names: String,
+    zap_cells: { type: Number, default: 500 },
     email: { type: String, required: true, unique: true },
     profile_img: { type: String, required: true },
   },
