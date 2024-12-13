@@ -26,6 +26,7 @@ export async function generateAudioBuffers(
 ): Promise<Buffer[]> {
   const buffers: Buffer[] = [];
 
+  // @ts-ignore
   for (const [index, chunk] of chunks.entries()) {
     console.log(`Processing chunk ${index + 1}/${chunks.length}`);
 
