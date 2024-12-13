@@ -2,7 +2,7 @@
   "name": "stories_server",
   "scripts": {
     "dev": "pm2 start pm2.config.js --env development",
-    "start": "pm2 start pm2.config.js --env production"
+    "start": "pm2 start pm2.config.js --env production --attach"
   },
   "dependencies": {
     "@clerk/backend": "^1.18.0",
