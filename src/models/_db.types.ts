@@ -18,6 +18,33 @@ interface User extends Document {
 const zodUserSchema = z.custom<User>();
 
 // ~ =============================================>
+// ~ ======= bible study series type   -->
+// ~ =============================================>
+type StudySeries = {
+  name: string;
+  theme: string;
+  duration: string;
+  interval: string;
+  start_date: string;
+  sessions: {
+    title: string;
+    passage: string;
+    cover: string;
+    questions: string[];
+  }[];
+};
+
+// ~ =============================================>
+// ~ ======= Study group type  -->
+// ~ =============================================>
+interface StudyGroup {
+  name: string;
+  creator: ObjectId;
+  members: string;
+  series: StudySeries;
+}
+
+// ~ =============================================>
 // ~ ======= Story Schema   -->
 // ~ =============================================>
 interface Story extends Document {
@@ -227,4 +254,11 @@ interface Story extends Document {
 
 const zodStorySchema = z.custom<Story>();
 
-export { type User, type Story, zodUserSchema, zodStorySchema };
+export {
+  type User,
+  type Story,
+  zodUserSchema,
+  zodStorySchema,
+  type StudySeries,
+  type StudyGroup,
+};
